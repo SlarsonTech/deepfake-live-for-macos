@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Virtual Environment
+bin/
+lib/
+include/
+share/
+pyvenv.cfg
+
+# Models
+models/*.onnx
+models/*.pth
+models/*.pt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Output files
+output/
+results/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# InsightFace cache
+.insightface/
+
+# Test images
+test_images/
+*.jpg
+*.jpeg
+*.png
+*.bmp
+!assets/*.png 
