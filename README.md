@@ -1,6 +1,8 @@
 # Deepfake Live Camera for macOS M2
-Developed by Ilyas AKKUS
+
 Real-time face swap application optimized for Apple Silicon (M1/M2/M3) with OBS Studio integration.
+
+Developed by Ilyas AKKUS
 
 ## Features
 
