@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Test script to debug face swapping issues."""
 
-import sys
 import cv2
-import numpy as np
+from pathlib import Path
 from modules.core import FaceSwapper
 
 def test_face_swap():
@@ -24,8 +23,17 @@ def test_face_swap():
     # Test face detection
     print("\n2. Testing face detection...")
     
-    # Create a simple test image (you can replace with actual image path)
-    test_image = np.ones((480, 640, 3), dtype=np.uint8) * 255
+    # Load the provided Face.jpeg for detection
+    image_path = Path(__file__).resolve().parent / "tests" / "Face.jpeg"
+    if not image_path.exists():
+        raise FileNotFoundError(
+            f"Test image not found at {image_path}. "
+            "Place a Face.jpeg image in the tests directory."
+        )
+
+    test_image = cv2.imread(str(image_path))
+    if test_image is None:
+        raise RuntimeError(f"Failed to read image at {image_path}")
     
     try:
         faces = face_swapper.face_app.get(test_image)
