@@ -70,7 +70,6 @@ def test_face_swap():
         return False
     
     print("\n3. Checking InsightFace models...")
-    import os
     insightface_path = os.path.expanduser("~/.insightface/models")
     if os.path.exists(insightface_path):
         print(f"InsightFace models directory: {insightface_path}")
