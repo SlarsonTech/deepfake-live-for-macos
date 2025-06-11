@@ -4,13 +4,33 @@
 import cv2
 from pathlib import Path
 from modules.core import FaceSwapper
+import insightface
+import onnxruntime as ort
+import os
 
 def test_face_swap():
     print("=== Face Swap Test ===\n")
     
     # Initialize face swapper
     print("1. Initializing face swapper...")
-    face_swapper = FaceSwapper(execution_provider='cpu')  # Use CPU for testing
+    print("ONNX Runtime version:", ort.__version__)
+    try:
+        face_swapper = FaceSwapper(execution_provider='cpu')  # Use CPU for testing
+    except Exception as e:
+        print(f"Error initializing FaceSwapper: {e}")
+        return False
+
+    print("Providers in use:", face_swapper.providers)
+    print("Available ORT providers:", ort.get_available_providers())
+    print("InsightFace version:", insightface.__version__)
+    model_root = getattr(face_swapper.face_app, "root", None)
+    if model_root:
+        print("Face analysis model root:", model_root)
+    else:
+        print("Face analysis model root attribute not found")
+    model_path = os.path.join('models', 'inswapper_128.onnx')
+    print("Face swap model path:", os.path.abspath(model_path))
+    print("Model exists:", os.path.exists(model_path))
     
     # Check if model is loaded
     if face_swapper.face_swapper is None:
@@ -34,10 +54,14 @@ def test_face_swap():
     test_image = cv2.imread(str(image_path))
     if test_image is None:
         raise RuntimeError(f"Failed to read image at {image_path}")
+    print("Image shape:", test_image.shape)
+    print("Image dtype:", test_image.dtype)
     
     try:
         faces = face_swapper.face_app.get(test_image)
         print(f"✅ Face detection working. Found {len(faces)} faces.")
+        for i, f in enumerate(faces):
+            print(f"Face {i}: bbox={f.bbox}, score={f.det_score}")
     except Exception as e:
         print(f"❌ Face detection error: {e}")
         return False
