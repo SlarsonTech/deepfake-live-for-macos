@@ -16,7 +16,6 @@ def test_face_swap():
     print("Providers in use:", face_swapper.providers)
     print("Available ORT providers:", ort.get_available_providers())
     print("InsightFace version:", insightface.__version__)
-    print("Face analysis model root:", face_swapper.face_app.root)
     
     # Check if model is loaded
     if face_swapper.face_swapper is None:
