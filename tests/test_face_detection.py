@@ -6,11 +6,13 @@ import insightface
 import onnxruntime as ort
 import os
 
+
 class FaceDetectionTest(unittest.TestCase):
     def test_face_jpeg_contains_face(self):
         img_path = Path(__file__).resolve().parent / "Face.jpeg"
         if not img_path.exists():
             self.skipTest(f"Test image not found at {img_path}")
+
         print("ONNX Runtime version:", ort.__version__)
         try:
             swapper = FaceSwapper(execution_provider='cpu')
@@ -28,6 +30,7 @@ class FaceDetectionTest(unittest.TestCase):
         model_path = os.path.join('models', 'inswapper_128.onnx')
         print("Face swap model path:", os.path.abspath(model_path))
         print("Model exists:", os.path.exists(model_path))
+
 
         img = cv2.imread(str(img_path))
         self.assertIsNotNone(img, f"Failed to read image at {img_path}")

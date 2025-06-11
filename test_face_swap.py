@@ -8,11 +8,13 @@ import insightface
 import onnxruntime as ort
 import os
 
+
 def test_face_swap():
     print("=== Face Swap Test ===\n")
     
     # Initialize face swapper
     print("1. Initializing face swapper...")
+
     print("ONNX Runtime version:", ort.__version__)
     try:
         face_swapper = FaceSwapper(execution_provider='cpu')  # Use CPU for testing
@@ -31,6 +33,7 @@ def test_face_swap():
     model_path = os.path.join('models', 'inswapper_128.onnx')
     print("Face swap model path:", os.path.abspath(model_path))
     print("Model exists:", os.path.exists(model_path))
+
     
     # Check if model is loaded
     if face_swapper.face_swapper is None:
